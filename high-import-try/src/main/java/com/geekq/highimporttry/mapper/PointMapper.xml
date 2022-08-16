@@ -19,22 +19,22 @@
     <select id="getPointByUserId"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List" />
-        from point
+        from bill_3.point
         where user_ = #{userId}
     </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from point
+    from bill_3.point
     where pointId = #{pointId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from point
+    delete from bill_3.point
     where pointId = #{pointId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.geekq.highimporttry.entity.Point" >
-    insert into point (pointId, availablePoints, frozenPoints, 
+    insert into bill_3.point (pointId, availablePoints, frozenPoints,
       version, user_, last_update_time, 
       delayUpdateMode, latest_point_log_id)
     values (#{pointId,jdbcType=INTEGER}, #{availablePoints,jdbcType=DECIMAL}, #{frozenPoints,jdbcType=DECIMAL}, 
@@ -43,7 +43,7 @@
   </insert>
 
   <insert id="insertBatch">
-    INSERT INTO point (pointId, availablePoints, frozenPoints,
+    INSERT INTO bill_3.point (pointId, availablePoints, frozenPoints,
     version, user_, last_update_time,
     delayUpdateMode, latest_point_log_id) VALUES
     <foreach collection="list" item="item" index="index"
@@ -55,7 +55,7 @@
   </insert>
 
   <insert id="insertSelective" parameterType="com.geekq.highimporttry.entity.Point" >
-    insert into point
+    insert into bill_3.point
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="pointId != null" >
         pointId,
@@ -110,7 +110,7 @@
     </trim>
   </insert>
   <update id="updateByid" parameterType="com.geekq.highimporttry.entity.Point" >
-    update point
+    update bill_3.point
     <set >
       <if test="availablePoints != null" >
         availablePoints = #{availablePoints,jdbcType=DECIMAL},
@@ -135,7 +135,7 @@
     where pointId = #{pointId} and version = #{version}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.geekq.highimporttry.entity.Point" >
-    update point
+    update bill_3.point
     set availablePoints = #{availablePoints,jdbcType=DECIMAL},
       frozenPoints = #{frozenPoints,jdbcType=DECIMAL},
       user_ = #{user,jdbcType=INTEGER},
@@ -147,21 +147,21 @@
   </update>
 
   <select id="queryAllByOffset" resultMap="BaseResultMap">
-    SELECT * from point
+    SELECT * from bill_3.point
     ORDER by pointId ASC
     limit #{limit} offset #{offset}
   </select>
 
   <select id="getCount" resultType="java.lang.Integer">
-    SELECT COUNT(*)  FROM point
+    SELECT COUNT(*)  FROM bill_3.point
   </select>
 
   <select id="getMaxPointId" resultType="java.lang.Long">
-    SELECT max(pointId) FROM point
+    SELECT max(pointId) FROM bill_3.point
   </select>
 
-  <select id="queryAllByPointId" resultMap="BaseResultMap">
-    SELECT * FROM point  where pointid BETWEEN #{start,jdbcType=BIGINT} and #{end,jdbcType=BIGINT}
+  <select id="queryAllByPointId" parameterType="java.lang.String" resultType="com.geekq.highimporttry.entity.Point">
+    SELECT * FROM bill_3.point  where pointId BETWEEN #{start,jdbcType=BIGINT} and #{end,jdbcType=BIGINT}
   </select>
 
 </mapper>

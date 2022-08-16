@@ -35,7 +35,7 @@ public interface PointDao {
 
     Point selectByPrimaryKey(Integer pointid);
 
-    int updateByPrimaryKeySelective(Point record);
+//    int updateByPrimaryKeySelective(Point record);
 
     public List<Point> queryAllByOffset(@Param("offset") Integer offset, @Param("limit") Integer limit);
 
